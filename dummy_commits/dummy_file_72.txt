@@ -1,0 +1,1 @@
+Commit #72 at 2024-09-12 10:49:39: fix: handle null values gracefully
