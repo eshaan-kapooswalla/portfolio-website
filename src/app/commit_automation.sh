@@ -146,4 +146,31 @@ for ((i=1; i<=TOTAL_COMMITS; i++)); do
   git commit -m "$commit_msg"
 
   echo "Committed: $dummy_file at $commit_datetime with message: $commit_msg"
-done 
+done
+
+# Cleanup function (optional)
+cleanup() {
+  echo "Cleaning up dummy files and workspace..."
+  rm -rf "$WORK_DIR"
+  echo "Cleanup complete."
+}
+
+# Uncomment the following line to enable cleanup after running:
+# cleanup
+
+# Usage notes
+cat <<EOF
+
+---
+commit_automation.sh usage:
+- This script generates 107 backdated commits between $START_DATE and $END_DATE.
+- Each commit uses a realistic message and a randomized timestamp (max 2 per day).
+- Dummy files are created in the $WORK_DIR directory.
+- To remove all dummy files after running, uncomment the 'cleanup' line at the end of the script.
+- Run this script from the root of your git repository.
+
+Example:
+  bash src/app/commit_automation.sh
+---
+
+EOF 
