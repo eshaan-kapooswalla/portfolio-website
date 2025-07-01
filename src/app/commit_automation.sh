@@ -121,5 +121,29 @@ get_random_datetime() {
   echo ""
 }
 
-# Placeholder for next stages
-# ... existing code ... 
+# Number of commits to generate
+TOTAL_COMMITS=107
+
+# Main commit loop
+echo "Generating $TOTAL_COMMITS backdated commits..."
+for ((i=1; i<=TOTAL_COMMITS; i++)); do
+  # Get random date/time and commit message
+  commit_datetime=$(get_random_datetime)
+  commit_msg=$(get_random_commit_message)
+
+  if [ -z "$commit_datetime" ]; then
+    echo "No more available dates for commits."
+    break
+  fi
+
+  # Create a dummy file or update an existing one
+  dummy_file="$WORK_DIR/dummy_file_$i.txt"
+  echo "Commit #$i at $commit_datetime: $commit_msg" >> "$dummy_file"
+
+  git add "$dummy_file"
+  GIT_AUTHOR_DATE="$commit_datetime" \
+  GIT_COMMITTER_DATE="$commit_datetime" \
+  git commit -m "$commit_msg"
+
+  echo "Committed: $dummy_file at $commit_datetime with message: $commit_msg"
+done 
